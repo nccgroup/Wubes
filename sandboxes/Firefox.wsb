@@ -1,0 +1,17 @@
+<Configuration>
+<vGPU>Enable</vGPU>
+<Networking>Default</Networking>
+<MappedFolders>
+   <MappedFolder>
+     <HostFolder>C:\path\to\wubes\sandboxes\Firefox</HostFolder>
+     <ReadOnly>false</ReadOnly>
+   </MappedFolder>
+   <MappedFolder>
+     <HostFolder>C:\path\to\wubes\shared</HostFolder>
+     <ReadOnly>true</ReadOnly>
+   </MappedFolder>
+</MappedFolders>
+<LogonCommand>
+   <Command>C:\users\WDAGUtilityAccount\Desktop\Firefox\install.bat</Command>
+</LogonCommand>
+</Configuration>
