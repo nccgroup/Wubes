@@ -123,27 +123,31 @@ def main():
         timestr = time.strftime("%Y%m%d-%H%M%S")
         backup_path = os.path.join(SHARED_BACKUPS_PATH, '%s-%s' % (SHARED_PROFILE, timestr))
 
-        profile_path = get_default_profile()
-        print("Backuping old shared profile folder...")
-        shutil.move(SHARED_PROFILE_PATH, backup_path)
+        if os.path.isdir(SHARED_PROFILE_PATH):
+            print("Backuping old shared profile folder...")
+            shutil.move(SHARED_PROFILE_PATH, backup_path)
 
+        profile_path = get_default_profile()
         print("Saving latest profile to shared profile folder...")
         shutil.copytree(profile_path, SHARED_PROFILE_PATH)
     else:
-        cmd = FIREFOX_PATH
-        print("Executing: %s" % cmd)
-        proc = subprocess.Popen(cmd, shell=True)
-        time.sleep(3)
-        print("Firefox PID: %d" % proc.pid)
-        close_firefox_all()
-        proc.wait()
+        if os.path.isdir(SHARED_PROFILE_PATH):
+            cmd = FIREFOX_PATH
+            print("Executing: %s" % cmd)
+            proc = subprocess.Popen(cmd, shell=True)
+            time.sleep(3)
+            print("Firefox PID: %d" % proc.pid)
+            close_firefox_all()
+            proc.wait()
 
-        profile_path = get_default_profile()
-        print("Deleting old profile folder...")
-        shutil.rmtree(profile_path)
+            profile_path = get_default_profile()
+            print("Deleting old profile folder...")
+            shutil.rmtree(profile_path)
 
-        print("Copying new profile folder...")
-        shutil.copytree(SHARED_PROFILE_PATH, profile_path)
+            print("Copying new profile folder...")
+            shutil.copytree(SHARED_PROFILE_PATH, profile_path)
+        else:
+            print("No shared profile found, will init an empty profile next time Firefox runs")
 
     print("Done")
 
