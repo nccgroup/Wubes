@@ -35,6 +35,8 @@ import subprocess
 import time
 import shutil
 import argparse
+import traceback
+
 
 SHARED_PROFILE = 'abcdefgh.default-release'
 FIREFOX_PATH = "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
